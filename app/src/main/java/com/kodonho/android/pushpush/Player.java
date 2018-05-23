@@ -5,7 +5,7 @@ import android.graphics.Paint;
 
 public class Player {
     Paint paint;
-    float x,y;
+    int x,y;
 
     public Player(){
         paint = new Paint();

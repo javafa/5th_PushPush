@@ -19,12 +19,17 @@ public class Stage extends View {
 
     int currentMap[][];
     Paint gridPaint = new Paint();
+    Paint boxPaint = new Paint();
+    Paint goalPaint = new Paint();
 
     public Stage(Context context) {
         super(context);
         gridPaint.setColor(Color.GRAY); // 사각형의 색
         gridPaint.setStyle(Paint.Style.STROKE); // 사각형의 스타일
         gridPaint.setStrokeWidth(1); // 선두께
+
+        boxPaint.setColor(Color.BLACK);
+        goalPaint.setColor(Color.MAGENTA);
     }
 
     public void setConfig(int gridCount, float unit){
@@ -42,15 +47,23 @@ public class Stage extends View {
         drawPlayer(canvas);
     }
 
+    Paint tempPaint;
     private void drawMap(Canvas canvas){
         for(int y=0; y<currentMap.length; y++){
             for(int x=0; x<currentMap[0].length; x++){
+                if(currentMap[y][x] == 0) {
+                    tempPaint = gridPaint;
+                }else if(currentMap[y][x] == 1){
+                    tempPaint = boxPaint;
+                }else if(currentMap[y][x] == 9){
+                    tempPaint = goalPaint;
+                }
                 canvas.drawRect(
                         x * unit,
                         y * unit,
                         x * unit + unit,
                         y * unit + unit,
-                        gridPaint);
+                        tempPaint);
             }
         }
     }
@@ -79,11 +92,26 @@ public class Stage extends View {
                     player.left();
                 break;
             case RIGHT:
-                if((player.x + 1) < gridCount)
+                if(collisionCheck(RIGHT))
                     player.right();
                 break;
         }
         invalidate();
+    }
+
+    public boolean collisionCheck(int direction){
+        if((player.x + 1) >= gridCount)
+            return false;
+        // 다음 진행할 곳의 장애물 검사
+        if(currentMap[player.y][player.x+1] == 1){
+               if(currentMap[player.y][player.x+2] == 1 ){
+                   return false;
+               }
+            currentMap[player.y][player.x+1] = 0;
+            currentMap[player.y][player.x+2] = 1;
+        }
+
+        return true;
     }
 
     public void setCurrentMap(int[][] map) {
