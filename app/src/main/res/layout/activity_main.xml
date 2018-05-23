@@ -19,7 +19,7 @@
     </FrameLayout>
 
     <com.kodonho.android.pushpush.widget.MyButton
-        android:id="@+id/button"
+        android:id="@+id/btnDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -27,44 +27,40 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="down"
         android:text="Down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.kodonho.android.pushpush.widget.MyButton
-        android:id="@+id/button2"
+        android:id="@+id/btnLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="left"
         android:text="Left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button" />
+        app:layout_constraintEnd_toStartOf="@+id/btnDown" />
 
     <com.kodonho.android.pushpush.widget.MyButton
-        android:id="@+id/button3"
+        android:id="@+id/btnRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="right"
         android:text="Right"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/btnDown" />
 
     <com.kodonho.android.pushpush.widget.MyButton
-        android:id="@+id/button4"
+        android:id="@+id/btnUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:onClick="up"
         android:text="Up"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintBottom_toTopOf="@+id/btnDown"
+        app:layout_constraintEnd_toEndOf="@+id/btnDown"
+        app:layout_constraintStart_toStartOf="@+id/btnDown" />
 </android.support.constraint.ConstraintLayout>

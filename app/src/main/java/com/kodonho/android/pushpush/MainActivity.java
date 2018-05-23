@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Stage stage;
     FrameLayout container;
     Player player;
+    GameMap gameMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         initGame();
         initStage();
         initPlayer();
+        initButton();
     }
 
     private void initGame(){
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         gridCount = 10;
         // 게임 단위 설정
         unit = stageWidth / gridCount;
+        gameMap = new GameMap();
     }
 
     private void initStage(){
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         stage.setConfig(gridCount, unit);
         // 스테이지 프레임 레이아웃에 넣기
         container.addView(stage);
+
+        stage.setCurrentMap(gameMap.map1);
     }
 
     private void initPlayer(){
@@ -50,20 +55,22 @@ public class MainActivity extends AppCompatActivity {
         stage.addPlayer(player);
     }
 
-    public void up(View view){
-        player.up();
-        stage.invalidate();
+    public void initButton(){
+        findViewById(R.id.btnUp).setOnClickListener(buttonListener);
+        findViewById(R.id.btnDown).setOnClickListener(buttonListener);
+        findViewById(R.id.btnLeft).setOnClickListener(buttonListener);
+        findViewById(R.id.btnRight).setOnClickListener(buttonListener);
     }
-    public void down(View view){
-        player.down();
-        stage.invalidate();
-    }
-    public void right(View view){
-        player.right();
-        stage.invalidate();
-    }
-    public void left(View view){
-        player.left();
-        stage.invalidate();
-    }
+
+    View.OnClickListener buttonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.btnUp:    stage.move(Stage.UP);break;
+                case R.id.btnDown:  stage.move(Stage.DOWN);break;
+                case R.id.btnLeft:  stage.move(Stage.LEFT);break;
+                case R.id.btnRight: stage.move(Stage.RIGHT);break;
+            }
+        }
+    };
 }
