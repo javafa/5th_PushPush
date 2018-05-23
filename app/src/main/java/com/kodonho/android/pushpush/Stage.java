@@ -84,7 +84,7 @@ public class Stage extends View {
                     player.up();
                 break;
             case DOWN:
-                if((player.y + 1) < gridCount)
+                if(collisionProcess(DOWN))
                     player.down();
                 break;
             case LEFT:
@@ -92,23 +92,45 @@ public class Stage extends View {
                     player.left();
                 break;
             case RIGHT:
-                if(collisionCheck(RIGHT))
+                if(collisionProcess(RIGHT))
                     player.right();
                 break;
         }
         invalidate();
     }
 
-    public boolean collisionCheck(int direction){
-        if((player.x + 1) >= gridCount)
-            return false;
-        // 다음 진행할 곳의 장애물 검사
-        if(currentMap[player.y][player.x+1] == 1){
-               if(currentMap[player.y][player.x+2] == 1 ){
-                   return false;
-               }
-            currentMap[player.y][player.x+1] = 0;
-            currentMap[player.y][player.x+2] = 1;
+    public boolean collisionProcess(int direction){
+        switch(direction) {
+            case UP:
+                break;
+            case DOWN:
+                if ((player.y + 1) >= gridCount)
+                    return false;
+                // 다음 진행할 곳의 장애물 검사
+                if (currentMap[player.y+1][player.x] == 1) {
+                    if (player.y + 2 >= gridCount
+                            || currentMap[player.y + 2][player.x] == 1) {
+                        return false;
+                    }
+                    currentMap[player.y + 1][player.x] = 0;
+                    currentMap[player.y + 2][player.x] = 1;
+                }
+                break;
+            case LEFT:
+                break;
+            case RIGHT:
+                if ((player.x + 1) >= gridCount)
+                    return false;
+                // 다음 진행할 곳의 장애물 검사
+                if (currentMap[player.y][player.x + 1] == 1) {
+                    if (player.x + 2 >= gridCount
+                            || currentMap[player.y][player.x + 2] == 1) {
+                        return false;
+                    }
+                    currentMap[player.y][player.x + 1] = 0;
+                    currentMap[player.y][player.x + 2] = 1;
+                }
+                break;
         }
 
         return true;
